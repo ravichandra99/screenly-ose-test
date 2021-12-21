@@ -102,6 +102,11 @@ services:
     volumes:
       - resin-data:/data:ro
 
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+
 volumes:
     resin-data:
     redis-data:

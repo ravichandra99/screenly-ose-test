@@ -29,7 +29,7 @@ fi
 
 docker pull balenalib/rpi-raspbian:buster
 
-for container in base server celery redis websocket nginx; do
+for container in base server celery redis websocket nginx test; do
     echo "Building $container"
     docker "${DOCKER_BUILD_ARGS[@]}" \
         --build-arg "GIT_HASH=$GIT_HASH" \
