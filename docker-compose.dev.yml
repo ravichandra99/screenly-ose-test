@@ -102,8 +102,11 @@ services:
     volumes:
       - resin-data:/data:ro
 
-  web:
-    build: .
+  srly-ose-web:
+    image: screenly/srly-ose-web:latest-x86
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.test.dev
     ports:
       - "5000:5000"
 
