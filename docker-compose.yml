@@ -78,6 +78,18 @@ services:
     volumes:
       - redis-data:/var/lib/redis
 
+  srly-ose-web:
+      image: screenly/srly-ose-web
+      build:
+        context: .
+        dockerfile: docker/Dockerfile.test
+      environment:
+        - LISTEN=0.0.0.0
+        - CELERY_BROKER_URL=redis://redis:6379/0
+        - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      ports:
+        - "5000:5000"
+
   srly-ose-nginx:
     image: screenly/srly-ose-nginx
     build:
@@ -90,9 +102,12 @@ services:
     depends_on:
       - srly-ose-server
       - srly-ose-websocket
+      - srly-ose-web
     restart: always
     volumes:
       - resin-data:/data:ro
+
+    
 
 volumes:
     resin-data:
