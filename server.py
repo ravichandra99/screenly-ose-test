@@ -58,6 +58,11 @@ from lib.utils import validate_url
 
 from settings import CONFIGURABLE_SETTINGS, DEFAULTS, LISTEN, PORT, settings, ZmqPublisher, ZmqCollector
 
+
+#GPIO BOARD
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+
 HOME = getenv('HOME', '/home/pi')
 CELERY_RESULT_BACKEND = getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
 CELERY_BROKER_URL = getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
@@ -1811,6 +1816,32 @@ def integrations():
 def splash_page():
     my_ip = get_node_ip()
     return template('splash-page.html', my_ip=get_node_ip())
+
+
+#GPIO API
+
+@app.route('/api/pins/on', methods = ['POST'])
+def on():
+    if request.method == 'POST':
+        json = request.json
+        print(json['pin'])
+        GPIO.setup(json['pin'], GPIO.OUT)
+        GPIO.output(json['pin'], GPIO.HIGH)
+        return '{} ON'.format(json['pin'])
+
+@app.route('/api/pins/off', methods = ['POST'])
+def off():
+    if request.method == 'POST':
+        json = request.json
+        print(json['pin'])
+        GPIO.output(json['pin'], GPIO.LOW)
+        return '{} OFF'.format(json['pin'])
+
+
+@app.route('/reset/pins')
+def reset():
+    GPIO.cleanup()
+    return 'GPIO RESET'
 
 
 @app.errorhandler(403)

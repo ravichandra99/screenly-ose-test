@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.server
+    privileged: true
     environment:
       - HOME=/data
       - LISTEN=0.0.0.0
@@ -72,6 +73,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.test
+    privileged: true
     environment:
       - LISTEN=0.0.0.0
       - CELERY_BROKER_URL=redis://redis:6379/0
@@ -98,8 +100,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.nginx
     ports:
-      - 80:80
-      - 5000:5000
+      - 8085:80
     environment:
       - HOME=/data
     depends_on:
@@ -108,9 +109,7 @@ services:
       - srly-ose-web
     restart: always
     volumes:
-      - resin-data:/data:ro
-
-    
+      - resin-data:/data:ro   
 
 volumes:
     resin-data:

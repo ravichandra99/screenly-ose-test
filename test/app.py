@@ -1,23 +1,32 @@
 import time
-
-import redis
-from flask import Flask
+from flask import Flask,request
 
 app = Flask(__name__)
-cache = redis.Redis(host='redis', port=6379)
 
-def get_hit_count():
-    retries = 5
-    while True:
-        try:
-            return cache.incr('hits')
-        except redis.exceptions.ConnectionError as exc:
-            if retries == 0:
-                raise exc
-            retries -= 1
-            time.sleep(0.5)
 
 @app.route('/')
 def hello():
-    count = get_hit_count()
-    return 'Hello World! I have been seen {} times.\n'.format(count)
+    return 'Hello World!'
+
+# @app.route('/api/pins/on', methods = ['POST'])
+# def on():
+#     if request.method == 'POST':
+#         json = request.json
+#         print(json['pin'])
+#         GPIO.setup(json['pin'], GPIO.OUT)
+#         GPIO.output(json['pin'], GPIO.HIGH)
+#         return '{} ON'.format(json['pin'])
+
+# @app.route('/api/pins/off', methods = ['POST'])
+# def off():
+#     if request.method == 'POST':
+#         json = request.json
+#         print(json['pin'])
+#         GPIO.output(json['pin'], GPIO.LOW)
+#         return '{} OFF'.format(json['pin'])
+
+
+# @app.route('/reset/pins')
+# def reset():
+#     GPIO.cleanup()
+#     return 'GPIO RESET'
