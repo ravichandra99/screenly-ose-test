@@ -68,21 +68,6 @@ services:
     volumes:
       - resin-data:/data
 
-  srly-ose-web:
-    image: screenly/srly-ose-web
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.test
-    privileged: true
-    environment:
-      - LISTEN=0.0.0.0
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    ports:
-      - "5000:5000"
-    volumes:
-      - resin-data:/data
-
   redis:
     image: screenly/srly-ose-redis
     build:
