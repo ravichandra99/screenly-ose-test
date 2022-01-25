@@ -91,7 +91,6 @@ services:
     depends_on:
       - srly-ose-server
       - srly-ose-websocket
-      - srly-ose-web
     restart: always
     volumes:
       - resin-data:/data:ro   
