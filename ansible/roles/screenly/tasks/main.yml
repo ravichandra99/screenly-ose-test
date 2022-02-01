@@ -26,7 +26,6 @@
 - name: Install pip dependencies
   pip:
     requirements: /home/pi/screenly/requirements/requirements.host.txt
-    extra_args: "--no-cache-dir --upgrade"
 
 - name: Remove screenly_utils.sh
   file:
