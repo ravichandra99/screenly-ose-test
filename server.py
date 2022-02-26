@@ -1825,7 +1825,7 @@ def on():
     if request.method == 'POST':
         json = request.json
         print(json['pin'])
-        GPIO.setup(json['pin'], GPIO.OUT)
+        # GPIO.setup(json['pin'], GPIO.OUT)
         GPIO.output(json['pin'], GPIO.HIGH)
         return '{} ON'.format(json['pin'])
 
@@ -1834,6 +1834,7 @@ def off():
     if request.method == 'POST':
         json = request.json
         print(json['pin'])
+        GPIO.setup(json['pin'], GPIO.OUT)
         GPIO.output(json['pin'], GPIO.LOW)
         return '{} OFF'.format(json['pin'])
 
