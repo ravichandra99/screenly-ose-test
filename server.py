@@ -1844,6 +1844,10 @@ def reset():
     GPIO.cleanup()
     return 'GPIO RESET'
 
+@app.route('/helloworld')
+def helloworld():
+    return 'helloworld'
+
 
 @app.errorhandler(403)
 def mistake403(code):
