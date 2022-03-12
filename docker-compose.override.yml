@@ -5,6 +5,7 @@ services:
     environment:
       - MY_IP=${MY_IP}
     volumes:
+      - /home/pi/screenly:/data/screenly
       - /home/pi/.screenly:/data/.screenly
       - /home/pi/screenly_assets:/data/screenly_assets
       - /home/pi/screenly/static:/data/screenly/static
@@ -15,6 +16,7 @@ services:
     image: screenly/srly-ose-viewer:${DOCKER_TAG}-${DEVICE_TYPE}
     mem_limit: ${VIEWER_MEMORY_LIMIT_KB}k
     volumes:
+      - /home/pi/screenly:/data/screenly
       - /home/pi/.screenly:/data/.screenly
       - /home/pi/screenly_assets:/data/screenly_assets
       - /etc/timezone:/etc/timezone:ro
